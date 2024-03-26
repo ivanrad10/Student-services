@@ -1,0 +1,149 @@
+﻿<Window x:Class="GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        xmlns:ns="clr-namespace:GUI.Localization"
+        mc:Ignorable="d"
+        Title="Studentska sluzba" Height="450" Width="800">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="{ns:Loc File}">
+                <MenuItem Header="{ns:Loc New}" Click="Add"></MenuItem>
+                <MenuItem Header="{ns:Loc Save}" Click="Save"></MenuItem>
+                <MenuItem Header="{ns:Loc Open}">
+                    <MenuItem Header="{ns:Loc Professors}" Click="openProfesor"/>
+                    <MenuItem Header="{ns:Loc Students}" Click="openStudent"/>
+                    <MenuItem Header="{ns:Loc Subjects}" Click="openPredmet"/>
+                    <MenuItem Header="{ns:Loc Chair}" Click="openKatedra"/>
+                </MenuItem>
+                <MenuItem Header="{ns:Loc Close}" Click="Close"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="{ns:Loc Edit}">
+                <MenuItem Header="{ns:Loc Edit}" Click="Edit"></MenuItem>
+                <MenuItem Header="{ns:Loc Delete}" Click="Delete"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="{ns:Loc Help}">
+                <MenuItem Header="{ns:Loc About}" Click="About"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="{ns:Loc Additional information}">
+                <MenuItem Header="8.27" Click="SviStudentiZaSvePredmete"></MenuItem>
+                <MenuItem Header="8.28" Click="SviProfesoriZaStudenta"></MenuItem>
+                <MenuItem Header="8.29" Click="ZadovoljenoSLusanjePredmeta"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="{ns:Loc Localization}">
+                <MenuItem Header="{ns:Loc Serbian}" Click="MenuItem_Click_Serbian" ></MenuItem>
+                <MenuItem Header="{ns:Loc English}" Click="MenuItem_Click_English" ></MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <StatusBar DockPanel.Dock="Bottom" Height="23">
+            <TextBlock x:Name="StatusBarDock" 
+                Text="{ns:Loc Student service}" FontWeight="Bold"  />
+            <TextBlock Name="lbl" Text="{Binding Path=StatusBarName}"  >
+
+            </TextBlock>
+
+            <TextBlock x:Name="DisplayDate" Margin="490, 0,0,0">
+
+            </TextBlock>
+        </StatusBar>
+        
+        <ToolBar DockPanel.Dock="Top">
+            <Button x:Name="tbNew" ToolTip="Add new entity" Click="Add" Opacity="1.0">
+                <Image x:Name="addImage" Width="20" Height="20"/>
+            </Button>
+            <Button x:Name="tbEdit" ToolTip="Edit entity" Click="Edit" Opacity="1.0">
+                <Image x:Name="editUserImage" Width="20" Height="20"/>
+            </Button>
+            <Button x:Name="tbDelete" ToolTip="Delete entity" Click="Delete" Opacity="1.0">
+                <Image x:Name="deleteImage" Width="20" Height="20"/>
+            </Button>
+            <Border>
+                <TextBox x:Name="pretraga" VerticalAlignment="Center" HorizontalAlignment="Right" Width="100" Margin="550,0,0,0"/>
+            </Border>
+            <Button x:Name="tbSearch" ToolTip="Search" Opacity="1.0" Click="Search">
+                <Image x:Name="searchImage" Width="20" Height="20"/>
+            </Button>
+        </ToolBar>
+
+
+        <TabControl x:Name="tabControl">
+            <TabItem Name="tabItem1">
+                <TabItem.Header>
+                    <Label Content="{ns:Loc Professor}" 
+                MouseLeftButtonDown="IsOnProf" 
+                HorizontalAlignment="Stretch"/>
+                </TabItem.Header>
+                <DataGrid Height="350"
+                          AutoGenerateColumns="False"
+                          x:Name="ProfesorDataGrid"
+                          ItemsSource="{Binding Profesori, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedProfesor, UpdateSourceTrigger=PropertyChanged}"
+                          SelectionMode="Single" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{ns:Loc Name}" Binding="{Binding Ime}"/>
+                        <DataGridTextColumn Header="{ns:Loc Last name}" Binding="{Binding Prezime}"/>
+                        <DataGridTextColumn Header="{ns:Loc Date of birth}" Binding="{Binding Datum}"/>
+                        <DataGridTextColumn Header="{ns:Loc Adress}" Binding="{Binding Adresa}"/>
+                        <DataGridTextColumn Header="{ns:Loc Phone number}" Binding="{Binding BrTel}"/>
+                        <DataGridTextColumn Header="{ns:Loc Email}" Binding="{Binding Email}"/>
+                        <DataGridTextColumn Header="{ns:Loc Tilte}" Binding="{Binding Zvanje}"/>
+                        <DataGridTextColumn Header="{ns:Loc Years of service}" Binding="{Binding GodStaz}"/>
+                        <DataGridTextColumn Header="{ns:Loc ID card}" Binding="{Binding BrLicne}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Name="tabItem2">
+                <TabItem.Header>
+                    <Label Content="{ns:Loc Student}" 
+                MouseLeftButtonDown="IsOnStud" 
+                HorizontalAlignment="Stretch" Foreground="Black"/>
+                </TabItem.Header>
+                <DataGrid Height="350"
+                          AutoGenerateColumns="False"
+                          x:Name="StudentDataGrid"
+                          ItemsSource="{Binding Studenti, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedStudent, UpdateSourceTrigger=PropertyChanged}"
+                          SelectionMode="Single" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{ns:Loc Name}" Binding="{Binding Ime}"/>
+                        <DataGridTextColumn Header="{ns:Loc Last name}" Binding="{Binding Prezime}"/>
+                        <DataGridTextColumn Header="{ns:Loc Date of birth}" Binding="{Binding Datum}"/>
+                        <DataGridTextColumn Header="{ns:Loc Adress}" Binding="{Binding Adresa}"/>
+                        <DataGridTextColumn Header="{ns:Loc Phone number}" Binding="{Binding BrTel}"/>
+                        <DataGridTextColumn Header="{ns:Loc Email}" Binding="{Binding Email}"/>
+                        <DataGridTextColumn Header="{ns:Loc Year of study}" Binding="{Binding GodinaStudiranja}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <TabItem Name="tabItem3">
+                <TabItem.Header>
+                    <Label Content="{ns:Loc Subject}" 
+                     MouseLeftButtonDown="IsOnPred" 
+                     HorizontalAlignment="Stretch" Foreground="Black"/>
+                </TabItem.Header>
+                <DataGrid Height="350"
+                    AutoGenerateColumns="False"
+                     x:Name="PredmetDataGrid"
+                     ItemsSource="{Binding Predmeti, UpdateSourceTrigger=PropertyChanged}"
+                     SelectedItem="{Binding SelectedPredmet, UpdateSourceTrigger=PropertyChanged}"
+                     SelectionMode="Single" IsReadOnly="True">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="{ns:Loc Code}" Binding="{Binding Sifra}"/>
+                        <DataGridTextColumn Header="{ns:Loc Name}" Binding="{Binding Ime}"/>
+                        <DataGridTextColumn Header="{ns:Loc Performing year}" Binding="{Binding GodinaIzvodjenja}"/>
+                        <DataGridTextColumn Header="{ns:Loc Semester}" Binding="{Binding Semestar}"/>
+                        <DataGridTextColumn Header="ESPB" Binding="{Binding Espb}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+        </TabControl>
+    </DockPanel>
+</Window>

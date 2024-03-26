@@ -1,0 +1,69 @@
+﻿<Window x:Class="GUI.View.UpisOcene"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI.View"
+        mc:Ignorable="d"
+        Title="UpisOcene" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="30,30,30,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center">Sifra</Label>
+            <Label Grid.Column="0" Grid.Row="1"
+                   HorizontalAlignment="Center" VerticalAlignment="Center">Naziv</Label>
+            <Label Grid.Column="0" Grid.Row="2"
+                   HorizontalAlignment="Center" VerticalAlignment="Center">Ocena</Label>
+
+            <TextBox Grid.Column="1" Grid.Row="0" Width="120"
+                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                     IsReadOnly="False"
+                     Text="{Binding Path=polaganjeDTO.Sfira, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
+            <TextBox Grid.Column="1" Grid.Row="1" Width="120" 
+                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                     IsReadOnly="False"
+                     Text="{Binding Path=polaganjeDTO.Ime, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
+            <ComboBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120"
+                      x:Name="ocenaComboBox"
+                      Text="{Binding Path=polaganjeDTO.Ocena, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Path=polaganjeDTO.Ocena, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="6"/>
+                <ComboBoxItem Content="7"/>
+                <ComboBoxItem Content="8"/>
+                <ComboBoxItem Content="9"/>
+                <ComboBoxItem Content="10"/>
+            </ComboBox>
+            
+        </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Grid.Row="1">
+            <Button Height="Auto" 
+                    Width="Auto" 
+                    Margin="0,0,80,0" 
+                    Click="PotvrdiOnCLick"
+                    Content="Potvrdi">
+            </Button>
+
+            <Button Height="Auto" 
+                    Width="Auto" 
+                    Click="OdustaniOnClick"
+                    Content="Odustani">
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
